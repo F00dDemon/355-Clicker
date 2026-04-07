@@ -38,9 +38,20 @@ document.getElementById("click-btn").addEventListener("click", (event) => {
 
 window.addEventListener("load", (event) => {
     upgradeArray.forEach((el) => {
-        upgradesDiv.innerText += ` ${el.name}`
+        const upgradeSection = document.createElement("div");
+
+        upgradeSection.innerHTML = `
+        <strong>${el.name}</strong> \n Cost: ${el.cost} \n ${el.bonus} per click
+        <button onclick="buyUpgrade(${el.id}">Buy</button>`;
+        upgradesDiv.appendChild(upgradeSection);
     })
 })
+
+function buyUpgrade(elementUpgrade) {
+    score - elementUpgrade.cost;
+}
+
+
 
 updateDisplay();
 
