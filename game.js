@@ -38,22 +38,24 @@ function renderUpgrades() {
     upgradeArray.forEach((el) => {
         const upgradeSection = document.createElement("div");
 
+        // Like we discussed in class, everytime it reloads the upgrades section
+        // it will check if the specific upgrade is buyable and will just use
+        // either one of these HTML blocks to stop the user from buying it.
+        // Its not a proper implement but it works.
         if(score >= el.cost){
+            //Can afford upgrade
             upgradeSection.innerHTML = `
             <strong>${el.name}</strong> \n Cost: ${el.cost} \n ${el.bonus} per click
             <button onclick="buyUpgrade(${el.id})" class="buybtn">Buy</button>`;
             upgradesDiv.appendChild(upgradeSection);
         }else{
+            //Can't afford upgrade
             upgradeSection.innerHTML = `
             <strong>${el.name}</strong> \n Cost: ${el.cost} \n ${el.bonus} per click
             <button onclick="buyUpgrade(${el.id})" class="buybtn" disabled>Buy</button>`;
             upgradesDiv.appendChild(upgradeSection);
         }
     })
-    // let buyButtons = document.getElementsByClassName("buybtn");
-    // buyButtons.forEach((el) => {
-    //     if()
-    // })
     updateDisplay();
 }
 
