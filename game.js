@@ -29,29 +29,48 @@ const upgradesDiv = document.getElementById("upgrades")
 function updateDisplay() {
     scoreDisplay.innerText = `Score: ${score}`;
     rateDisplay.innerText = `Points per click: ${pointsPerClick}`;
+
+
 }
 
-document.getElementById("click-btn").addEventListener("click", (event) => {
-    updateDisplay();
-    score += pointsPerClick;
-});
-
-window.addEventListener("load", (event) => {
+function renderUpgrades() {
+    upgradesDiv.innerHTML=""
     upgradeArray.forEach((el) => {
         const upgradeSection = document.createElement("div");
 
-        upgradeSection.innerHTML = `
-        <strong>${el.name}</strong> \n Cost: ${el.cost} \n ${el.bonus} per click
-        <button onclick="buyUpgrade(${el.id}">Buy</button>`;
-        upgradesDiv.appendChild(upgradeSection);
+        if(score >= el.cost){
+            upgradeSection.innerHTML = `
+            <strong>${el.name}</strong> \n Cost: ${el.cost} \n ${el.bonus} per click
+            <button onclick="buyUpgrade(${el.id})" class="buybtn">Buy</button>`;
+            upgradesDiv.appendChild(upgradeSection);
+        }else{
+            upgradeSection.innerHTML = `
+            <strong>${el.name}</strong> \n Cost: ${el.cost} \n ${el.bonus} per click
+            <button onclick="buyUpgrade(${el.id})" class="buybtn" disabled>Buy</button>`;
+            upgradesDiv.appendChild(upgradeSection);
+        }
     })
-})
-
-function buyUpgrade(elementUpgrade) {
-    score - elementUpgrade.cost;
+    // let buyButtons = document.getElementsByClassName("buybtn");
+    // buyButtons.forEach((el) => {
+    //     if()
+    // })
+    updateDisplay();
 }
 
 
+function buyUpgrade(elementUpgrade) {
+    const upgradePurchase = upgradeArray.find((el) => el.id === elementUpgrade)
+    console.log(upgradePurchase)
+    score -= upgradePurchase.cost;
+    pointsPerClick += upgradePurchase.bonus
+    renderUpgrades()
+}
 
-updateDisplay();
+renderUpgrades()
 
+
+document.getElementById("click-btn").addEventListener("click", (event) => {
+    score += pointsPerClick;
+    renderUpgrades();
+    
+});
