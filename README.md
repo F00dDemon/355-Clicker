@@ -18,4 +18,4 @@ As you progesss, the game changes visually to reflect construction stages and re
 - Visual progess milestones
 
 Live Game 
-https://liliann19.github.io/Click-to-Add-a-Brick/
+https://f00ddemon.github.io/355-Clicker
